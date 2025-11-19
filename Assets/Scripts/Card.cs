@@ -16,8 +16,9 @@ public class Card : MonoBehaviour, IPointerClickHandler
     }
     public bool isMatched
     {
-        get; private set;
+        get; set;
     }
+
 
     CanvasGroup cg;
 

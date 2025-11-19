@@ -43,12 +43,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore(int v)
     {
-        scoreText.text = "Score: " + v;
+        scoreText.text = "Matches: " + v;
     }
 
     public void UpdateMoves(int v)
     {
-        movesText.text = "Moves: " + v;
+        movesText.text = "Turns: " + v;
     }
 
     public bool CheckWinCondition()

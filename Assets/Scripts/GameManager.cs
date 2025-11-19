@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
     public int matchesFound = 0;
 
     public float revealDelay = 0.7f; // how long to show pair before hiding / marking
+
+   
+
 
     void Awake()
     {
@@ -81,10 +85,14 @@ public class GameManager : MonoBehaviour
         if (a.cardID == b.cardID)
         {
             // MATCH
-            a.SetMatched();
+            a.SetMatched();   
             b.SetMatched();
+           
             matchesFound++;
-            score += 10;
+            score += 1;
+
+
+
             uiManager.UpdateScore(score);
             soundManager.PlayMatch();
 
