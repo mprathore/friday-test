@@ -40,6 +40,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
             frontImage.gameObject.SetActive(true);
             backImage.gameObject.SetActive(false);
             isFlipped = true;
+            Color c = frontImage.color;
+            c.a = 0f;              // change alpha
+            frontImage.color = c;
+            Image img = GetComponent<Image>();
+            img.color = c;
         }
         else
         {
@@ -78,7 +83,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         // keep front visible
     }
 
-    // Smooth flipping (non-blocking). Returns when finished.
+    
     public IEnumerator FlipToFrontCoroutine()
     {
         // play flip animation: scaleX 1->0 -> swap -> 0->1
