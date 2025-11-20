@@ -95,6 +95,12 @@ public class GameManager : MonoBehaviour
 
             uiManager.UpdateScore(score);
             soundManager.PlayMatch();
+            Color c = a.frontImage.color;
+            c.a = 0f;              // change alpha
+            a.frontImage.color = c;
+            b.frontImage.color = c;
+            a.GetComponent<Image>().color = c;
+            b.GetComponent<Image>().color = c;
 
             // check win
             if (uiManager != null && uiManager.CheckWinCondition())
