@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +8,8 @@ public class BoardManager : MonoBehaviour
     public RectTransform boardParent; // panel with GridLayoutGroup
     public GridLayoutGroup grid;
     public List<Sprite> cardSprites; // unique sprites (each forms one pair)
-    public int rows = 3;
-    public int cols = 4;
+    public int rows;
+    public int cols;
     public float spacing = 8f;
     public bool useSavedStateOnStart = true;
 
@@ -17,6 +17,9 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
+        rows = GlobalLevelSettings.rows;
+        cols = GlobalLevelSettings.cols;
+
         GenerateBoard();
     }
 

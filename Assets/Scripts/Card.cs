@@ -40,6 +40,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
             frontImage.gameObject.SetActive(true);
             backImage.gameObject.SetActive(false);
             isFlipped = true;
+            Color c = frontImage.color;
+            c.a = 0f;              // change alpha
+            frontImage.color = c;
+            Image img = GetComponent<Image>();
+            img.color = c;
         }
         else
         {

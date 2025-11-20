@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public SoundManager soundManager;
     public UIManager uiManager;
 
+    public int comboCount = 0;
+    public int comboBonus = 2; // bonus score for combo
+
     // click buffer: we accept any number of flips; every time two distinct flipped & unmatched cards are available we spawn a pair-check coroutine
     private List<Card> flippedBuffer = new List<Card>();
 
@@ -102,6 +105,16 @@ public class GameManager : MonoBehaviour
             a.GetComponent<Image>().color = c;
             b.GetComponent<Image>().color = c;
 
+            comboCount += 1;
+
+            // CHECK FOR COMBO BONUS
+            if (comboCount == 2)   // 2 matches = 4 cards = COMBO
+            {
+                score += comboBonus;  // give extra reward
+                uiManager.UpdateScore(score);
+                Debug.Log("COMBO achieved! +" + comboBonus);
+                comboCount = 0; // reset after bonus
+            }
             // check win
             if (uiManager != null && uiManager.CheckWinCondition())
             {
@@ -112,6 +125,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            comboCount = 0;
             // MISMATCH: play sound then flip back
             soundManager.PlayMismatch();
             // allow a short time then flip them back (non-blocking)

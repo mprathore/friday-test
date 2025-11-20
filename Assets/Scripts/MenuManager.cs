@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public GameObject continueButton;   // Assign in Inspector
+    public GameObject continueButton;
+    public GameObject LevelPanel;// Assign in Inspector
 
     void Start()
     {
@@ -24,12 +25,7 @@ public class MenuManager : MonoBehaviour
     // NEW GAME
     public void PlayNewGame()
     {
-        // delete old save
-        PlayerPrefs.DeleteKey("CardMatch_Save_v1");
-        PlayerPrefs.Save();
-
-        // load main gameplay scene
-        SceneManager.LoadScene("CardGame");
+        LevelPanel.SetActive(true);
     }
 
     // RESUME GAME
