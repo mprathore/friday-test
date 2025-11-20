@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public float revealDelay = 0.7f; // how long to show pair before hiding / marking
 
+    public GameObject combo;
    
 
 
@@ -108,12 +109,13 @@ public class GameManager : MonoBehaviour
             comboCount += 1;
 
             // CHECK FOR COMBO BONUS
-            if (comboCount == 2)   // 2 matches = 4 cards = COMBO
+            if (comboCount >= 2)   // 2 matches = 4 cards = COMBO
             {
                 score += comboBonus;  // give extra reward
                 uiManager.UpdateScore(score);
-                Debug.Log("COMBO achieved! +" + comboBonus);
-                comboCount = 0; // reset after bonus
+               // Debug.Log("COMBO achieved! +" + comboBonus);
+                StartCoroutine(EnableForHalfSecond(combo));
+
             }
             // check win
             if (uiManager != null && uiManager.CheckWinCondition())
@@ -138,4 +140,12 @@ public class GameManager : MonoBehaviour
     public int GetScore() => score;
     public int GetMoves() => moves;
     public int GetMatches() => matchesFound;
+
+    public IEnumerator EnableForHalfSecond(GameObject obj)
+    {
+        obj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        obj.SetActive(false);
+    }
+
 }

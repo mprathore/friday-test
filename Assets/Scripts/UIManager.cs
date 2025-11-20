@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class UIManager : MonoBehaviour
     public Text movesText;
     public Text timerText;
     public GameObject winPanel;
+    public TextMeshProUGUI ScoreTextWin;
+    public TextMeshProUGUI MoveTextWin;
     public BoardManager boardManager;
 
     float startTime;
@@ -63,6 +66,8 @@ public class UIManager : MonoBehaviour
     {
         winPanel.SetActive(true);
         running = false;
+        ScoreTextWin.text = scoreText.text;
+        MoveTextWin.text = movesText.text;
         SaveLoadManager.Instance.ClearSave();   // no resume if game already won
 
     }
