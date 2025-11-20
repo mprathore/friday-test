@@ -487,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030000001, y: 0.57000005}
   m_AnchorMax: {x: 0.17631249, y: 0.6888724}
-  m_AnchoredPosition: {x: -3.9178467, y: -0.94999695}
+  m_AnchoredPosition: {x: 16.952637, y: -183.579}
   m_SizeDelta: {x: -24.1633, y: -14.266998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &837948493
@@ -728,8 +728,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7df684b6eb27fa8408e9c87642e9c132, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -779,10 +779,10 @@ RectTransform:
   m_Father: {fileID: 462092448}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.017538428, y: 0.53673786}
-  m_AnchorMax: {x: 0.17631249, y: 0.8508149}
-  m_AnchoredPosition: {x: -5.8704834, y: -6.418167}
-  m_SizeDelta: {x: 18.2588, y: -3.3936005}
+  m_AnchorMin: {x: 0.010246761, y: 0.57000005}
+  m_AnchorMax: {x: 0.17631249, y: 0.8453172}
+  m_AnchoredPosition: {x: 37.069, y: -181}
+  m_SizeDelta: {x: -25.878, y: -9.488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &985537063
 MonoBehaviour:
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5176471, g: 0.2509804, b: 0.227451, a: 1}
+  m_Color: {r: 0.26415092, g: 0.24903734, b: 0.24770379, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1014,10 +1014,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit&Save
+  m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1319,6 +1319,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundManager: {fileID: 203365182}
   uiManager: {fileID: 688735314}
+  comboCount: 0
+  comboBonus: 2
   score: 0
   moves: 0
   matchesFound: 0
@@ -1373,7 +1375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030000001, y: 0.72212064}
   m_AnchorMax: {x: 0.16800001, y: 0.81837595}
-  m_AnchoredPosition: {x: 4.0820312, y: -11.366608}
+  m_AnchoredPosition: {x: 24.952515, y: -193.9956}
   m_SizeDelta: {x: -8.1633, y: 4.733}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1464417229

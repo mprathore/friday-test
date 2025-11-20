@@ -51,4 +51,9 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
         Debug.Log("QUIT GAME (Editor won't close)");
     }
+
+    public void LeaderBoard()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LeaderBoard");
+    }
 }
