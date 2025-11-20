@@ -83,7 +83,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         // keep front visible
     }
 
-    // Smooth flipping (non-blocking). Returns when finished.
+    
     public IEnumerator FlipToFrontCoroutine()
     {
         // play flip animation: scaleX 1->0 -> swap -> 0->1

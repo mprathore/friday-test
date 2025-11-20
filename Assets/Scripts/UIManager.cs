@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public BoardManager boardManager;
 
     float startTime;
-    bool running = true;
+    //bool running = true;
 
     void Awake()
     {
@@ -31,18 +31,18 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (!running)
-            return;
-        float t = Time.time - startTime;
-        timerText.text = $"Time: {FormatTime(t)}";
+        //if (!running)
+        //    return;
+        //float t = Time.time - startTime;
+        //timerText.text = $"Time: {FormatTime(t)}";
     }
 
-    string FormatTime(float s)
-    {
-        int mins = (int)(s / 60);
-        int secs = (int)(s % 60);
-        return $"{mins:00}:{secs:00}";
-    }
+    //string FormatTime(float s)
+    //{
+    //    int mins = (int)(s / 60);
+    //    int secs = (int)(s % 60);
+    //    return $"{mins:00}:{secs:00}";
+    //}
 
     public void UpdateScore(int v)
     {
@@ -56,8 +56,7 @@ public class UIManager : MonoBehaviour
 
     public bool CheckWinCondition()
     {
-        // If all pairs matched (simple: count matches equals pairs)
-        // BoardManager knows rows*cols/2
+      
         int totalPairs = (boardManager.rows * boardManager.cols) / 2;
         return GameManager.Instance.GetMatches() >= totalPairs;
     }
@@ -65,16 +64,16 @@ public class UIManager : MonoBehaviour
     public void ShowWin()
     {
         winPanel.SetActive(true);
-        running = false;
+      //  running = false;
         ScoreTextWin.text = scoreText.text;
         MoveTextWin.text = movesText.text;
-        SaveLoadManager.Instance.ClearSave();   // no resume if game already won
+        SaveLoadManager.Instance.ClearSave();   
 
     }
     public void HideWin()
     {
         winPanel.SetActive(false);
-        running = true;
+      //  running = true;
     }
 
 
@@ -114,8 +113,8 @@ public class UIManager : MonoBehaviour
         boardManager.GenerateBoard();
 
         // Reset timer
-        startTime = Time.time;
-        running = true;
+        //startTime = Time.time;
+     //   running = true;
 
         winPanel.SetActive(false);
     }
@@ -137,8 +136,8 @@ public class UIManager : MonoBehaviour
         UpdateMoves(0);
 
         // Reset timer
-        startTime = Time.time;
-        running = true;
+        //startTime = Time.time;
+        //running = true;
 
         // Clear any matched cards and reload board
         boardManager.GenerateBoard();

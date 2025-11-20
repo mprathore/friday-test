@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
 
     public int comboCount = 0;
-    public int comboBonus = 2; // bonus score for combo
+    public int comboBonus = 2; 
 
-    // click buffer: we accept any number of flips; every time two distinct flipped & unmatched cards are available we spawn a pair-check coroutine
+   
     private List<Card> flippedBuffer = new List<Card>();
 
     // stats
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public int moves = 0;
     public int matchesFound = 0;
 
-    public float revealDelay = 0.7f; // how long to show pair before hiding / marking
+    public float revealDelay = 0.7f; 
 
     public GameObject combo;
    
@@ -31,55 +31,55 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    // Called by Card when clicked
+ 
     public void CardClicked(Card c)
     {
-        // Immediately start flipping animation (non-blocking)
+        
         StartCoroutine(HandleCardFlip(c));
     }
 
     IEnumerator HandleCardFlip(Card c)
     {
-        // play flip sound
+       
         soundManager.PlayFlip();
 
-        // flip visually (don't block other clicks)
+       
         yield return StartCoroutine(c.FlipToFrontCoroutine());
 
-        // add to buffer
+    
         flippedBuffer.Add(c);
 
-        // if there are 2 or more non-matched unique cards ready, take the oldest two that are not matched
+      
         TryQueuePairs();
     }
 
     void TryQueuePairs()
     {
-        // find first two cards that are flipped and not matched and not currently under checking
+      
         List<Card> available = flippedBuffer.FindAll(x => x != null && x.isFlipped && !x.isMatched);
         while (available.Count >= 2)
         {
             Card a = available[0];
             Card b = available[1];
 
-            // remove them from buffer (so further clicks don't re-use same)
+           
             flippedBuffer.Remove(a);
             flippedBuffer.Remove(b);
-            // remove from available list for next loop
+           
             available.RemoveAt(0);
             available.RemoveAt(0);
 
-            // start comparing pair in its own coroutine
+        
             StartCoroutine(CheckPairCoroutine(a, b));
         }
     }
 
     IEnumerator CheckPairCoroutine(Card a, Card b)
     {
-        // add a small reveal delay so player sees both
+      
         yield return new WaitForSeconds(revealDelay);
 
-        // if either became matched by other logic meanwhile, skip
+       
         if (a.isMatched || b.isMatched)
             yield break;
 
@@ -108,10 +108,10 @@ public class GameManager : MonoBehaviour
 
             comboCount += 1;
 
-            // CHECK FOR COMBO BONUS
-            if (comboCount >= 2)   // 2 matches = 4 cards = COMBO
+           
+            if (comboCount >= 2)   
             {
-                score += comboBonus;  // give extra reward
+                score += comboBonus;  // extra reward
                 uiManager.UpdateScore(score);
                // Debug.Log("COMBO achieved! +" + comboBonus);
                 StartCoroutine(EnableForHalfSecond(combo));
@@ -128,9 +128,9 @@ public class GameManager : MonoBehaviour
         else
         {
             comboCount = 0;
-            // MISMATCH: play sound then flip back
+            // MISMATCH: 
             soundManager.PlayMismatch();
-            // allow a short time then flip them back (non-blocking)
+           
             StartCoroutine(a.FlipToBackCoroutine());
             StartCoroutine(b.FlipToBackCoroutine());
         }
