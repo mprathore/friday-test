@@ -12,13 +12,21 @@ public class UIManagerAPI : MonoBehaviour
     public TMP_Dropdown searchFilterDropdown;
     public TMP_InputField searchInputField;
 
+    public GameObject previousButton; // <-- ADDED
+
     private Person[] originalData; // Store API data for search
+
+    // -------- Pagination Variables --------
+    private int currentPage = 0;
+    private int itemsPerPage = 10;
 
     // ---------------- Start ----------------
     private void Start()
     {
         StartCoroutine(APIHandler.Instance.GetPersons(OnSuccess, OnError));
         statusText.text = "Loading...";
+
+        previousButton.SetActive(false);  // Hide on first load
     }
 
     // ---------------- API Success ----------------
@@ -35,8 +43,13 @@ public class UIManagerAPI : MonoBehaviour
         // Save original API data
         originalData = list.people;
 
-        // Show full list initially
-        BuildList(originalData);
+        // Start at first page
+        currentPage = 0;
+
+        // Show first 20
+        BuildList(GetPage(originalData, currentPage, itemsPerPage));
+
+        UpdatePaginationButtons();
     }
 
     // ---------------- API Error ----------------
@@ -62,13 +75,68 @@ public class UIManagerAPI : MonoBehaviour
         }
     }
 
+    // ---------------- Pagination: Slice Data ----------------
+    Person[] GetPage(Person[] source, int page, int perPage)
+    {
+        int start = page * perPage;
+
+        if (start >= source.Length)
+            return new Person[0]; // No more pages
+
+        int length = Mathf.Min(perPage, source.Length - start);
+
+        Person[] pageData = new Person[length];
+        System.Array.Copy(source, start, pageData, 0, length);
+
+        return pageData;
+    }
+
+    // ---------------- NEXT Button ----------------
+    public void OnNextButtonPressed()
+    {
+        currentPage++;
+
+        Person[] pageData = GetPage(originalData, currentPage, itemsPerPage);
+
+        if (pageData.Length == 0)
+        {
+            statusText.text = ("No more pages!");
+            currentPage--; // revert
+            return;
+        }
+
+        BuildList(pageData);
+        UpdatePaginationButtons();
+    }
+
+    // ---------------- PREVIOUS Button ----------------
+    public void OnPreviousButtonPressed()
+    {
+        if (currentPage == 0)
+        {
+            return;
+        }
+
+        currentPage--;
+
+        BuildList(GetPage(originalData, currentPage, itemsPerPage));
+        UpdatePaginationButtons();
+    }
+
+    // ---------------- Pagination Button Visibility ----------------
+    void UpdatePaginationButtons()
+    {
+        // Hide previous button on first page
+        previousButton.SetActive(currentPage > 0);
+    }
+
     // ---------------- Search Button Logic ----------------
     public void OnSearchButtonPressed()
     {
         string searchText = searchInputField.text.ToLower();
         int option = searchFilterDropdown.value;   // 0 = Name, 1 = Age, 2 = Location
 
-        Person[] filtered = originalData; // fallback to original list
+        Person[] filtered = originalData; // fallback
 
         if (option == 0)   // ---- Search by Name ----
         {
@@ -86,7 +154,7 @@ public class UIManagerAPI : MonoBehaviour
             }
             else
             {
-                Debug.Log("Age search requires a number.");
+                statusText.text = ("Age search requires a number.");
                 return;
             }
         }
@@ -97,7 +165,12 @@ public class UIManagerAPI : MonoBehaviour
             );
         }
 
-        // Show filtered results
-        BuildList(filtered);
+        // Reset pagination for filtered data
+        currentPage = 0;
+
+        // Show first page of results
+        BuildList(GetPage(filtered, currentPage, itemsPerPage));
+
+        UpdatePaginationButtons();
     }
 }
